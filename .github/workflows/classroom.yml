@@ -1,0 +1,145 @@
+name: Autograding Tests
+'on':
+  - push
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Java 16
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '16'
+      - name: largestNumber1 (1 Point)
+        id: largestnumber1-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: largestNumber1 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.largestNumber1
+          timeout: 1
+          max-score: 1
+      - name: largestNumber2 (1 Point)
+        id: largestnumber2-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: largestNumber2 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.largestNumber2
+          timeout: 1
+          max-score: 1
+      - name: stairs1 (1 Point)
+        id: stairs1-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: stairs1 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.stairs1
+          timeout: 1
+          max-score: 1
+      - name: stairs2 (1 Point)
+        id: stairs2-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: stairs2 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.stairs2
+          timeout: 1
+          max-score: 1
+      - name: pyramid (2 Points)
+        id: pyramid-2-points
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: pyramid (2 Points)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.pyramid
+          timeout: 1
+          max-score: 2
+      - name: rhombus1 (2 Points)
+        id: rhombus1-2-points
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: rhombus1 (2 Points)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.rhombus1
+          timeout: 1
+          max-score: 2
+      - name: rhombus2 (1 Point)
+        id: rhombus2-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: rhombus2 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.rhombus2
+          timeout: 1
+          max-score: 1
+      - name: marks1 (1 Points)
+        id: marks1-1-points
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: marks1 (1 Points)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.marks1
+          timeout: 1
+          max-score: 1
+      - name: marks2 (1 Point)
+        id: marks2-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: marks2 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.marks2
+          timeout: 1
+          max-score: 1
+      - name: happyNumber1 (2 Points)
+        id: happynumber1-2-points
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: happyNumber1 (2 Points)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.happyNumber1
+          timeout: 1
+          max-score: 2
+      - name: happyNumber2 (1 Point)
+        id: happynumber2-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: happyNumber2 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.happyNumber2
+          timeout: 1
+          max-score: 1
+      - name: marks3 (1 Point)
+        id: marks3-1-point
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: marks3 (1 Point)
+          setup-command: ''
+          command: gradle test --tests at.ac.fhcampuswien.AppTest.marks3
+          timeout: 1
+          max-score: 1
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          LARGESTNUMBER1-1-POINT_RESULTS: "${{steps.largestnumber1-1-point.outputs.result}}"
+          LARGESTNUMBER2-1-POINT_RESULTS: "${{steps.largestnumber2-1-point.outputs.result}}"
+          STAIRS1-1-POINT_RESULTS: "${{steps.stairs1-1-point.outputs.result}}"
+          STAIRS2-1-POINT_RESULTS: "${{steps.stairs2-1-point.outputs.result}}"
+          PYRAMID-2-POINTS_RESULTS: "${{steps.pyramid-2-points.outputs.result}}"
+          RHOMBUS1-2-POINTS_RESULTS: "${{steps.rhombus1-2-points.outputs.result}}"
+          RHOMBUS2-1-POINT_RESULTS: "${{steps.rhombus2-1-point.outputs.result}}"
+          MARKS1-1-POINTS_RESULTS: "${{steps.marks1-1-points.outputs.result}}"
+          MARKS2-1-POINT_RESULTS: "${{steps.marks2-1-point.outputs.result}}"
+          HAPPYNUMBER1-2-POINTS_RESULTS: "${{steps.happynumber1-2-points.outputs.result}}"
+          HAPPYNUMBER2-1-POINT_RESULTS: "${{steps.happynumber2-1-point.outputs.result}}"
+          MARKS3-1-POINT_RESULTS: "${{steps.marks3-1-point.outputs.result}}"
+        with:
+          runners: largestnumber1-1-point,largestnumber2-1-point,stairs1-1-point,stairs2-1-point,pyramid-2-points,rhombus1-2-points,rhombus2-1-point,marks1-1-points,marks2-1-point,happynumber1-2-points,happynumber2-1-point,marks3-1-point
